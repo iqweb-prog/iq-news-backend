@@ -82,6 +82,22 @@ app.post('/api/admin/news', async (req, res) => {
   }
 });
 
+// Admin Login Endpoint
+app.post('/api/admin/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  // You can customize your admin username and password here or store them in database environment variables
+  const ADMIN_USER = process.env.ADMIN_USER || "admin";
+  const ADMIN_PASS = process.env.ADMIN_PASS || "iqacademy2026";
+
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    // Send back a simple success token/flag
+    res.json({ success: true, token: "iq_secure_auth_token_xyz" });
+  } else {
+    res.status(401).json({ success: false, error: "Invalid username or password" });
+  }
+});
+
 // 4. Delete a story
 app.delete('/api/admin/news/:id', async (req, res) => {
   try {
